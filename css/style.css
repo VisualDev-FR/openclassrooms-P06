@@ -1,0 +1,47 @@
+html{
+    background-color: black;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+nav
+{
+    color: aliceblue;
+}
+
+.movie{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.movie:hover{
+    scale: 1.1;
+    cursor: pointer;
+}
+
+.movie, img{
+    height: 100%;
+    width: auto;
+}
+
+.movie_container{
+    display: flex;
+    gap: 20px;
+    height: 200px;
+    justify-content: space-around;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#best_film{
+    height: 500px;
+    margin-left: 50px;
+    margin-right: 50px;    
+}
+
