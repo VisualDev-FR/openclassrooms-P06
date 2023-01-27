@@ -58,12 +58,7 @@ h2
     position: absolute;
     z-index: 1;
     height: inherit;
-    opacity: 50%;
-}
-
-.slide_right
-{
-    opacity: 50%;
+    opacity: 0%;
 }
 
 .slide_left
@@ -74,6 +69,18 @@ h2
 .slide_left:hover,
 .slide_right:hover
 {
+    opacity: 50%;
     cursor: pointer;
+}
+
+#modal_window
+{
+    display: none;
+    background-color: aliceblue;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    display: none;
 }
 

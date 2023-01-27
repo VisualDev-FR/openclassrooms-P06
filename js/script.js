@@ -49,29 +49,129 @@ function get_category_3_movies(){
     return getResults("http://localhost:8000/api/v1/titles/?genre=" + CAT_3 + "&sort_by=-imdb_score");
 }
 
+function display_movie_details(movie_id){
+
+    fetch("http://localhost:8000/api/v1/titles/" + movie_id)
+    .then((response) => response.json())
+    .then((data) => {
+        
+        //TODO: remove this line
+        console.log(data);
+
+        // display the modal window
+        const modal_window = document.getElementById("modal_window");
+        modal_window.style.display = "block";
+
+        // clear all the content of the modal window
+        modal_window.innerHTML = "";
+
+        // add the img of the movie
+        var movie_img = document.createElement("img");
+        movie_img.src = data.image_url;        
+        modal_window.appendChild(movie_img);
+
+        // add the title of the movie
+        var title_span = document.createElement("p");
+        title_span.innerHTML = "Titre : " + data.original_title;
+        modal_window.appendChild(title_span);
+
+        // add the genres of the movie
+        var genres_span = document.createElement("p");
+        genres_span.innerHTML = "Genres : " + data.genres;
+        modal_window.appendChild(genres_span);
+
+        // add the release date
+        var release_date = document.createElement("p");
+        release_date.innerHTML = "Date de sortie : " + data.date_published;
+        modal_window.appendChild(release_date);
+
+        // add the rate
+        var rate_span = document.createElement("p");
+        rate_span.innerHTML = "Rated : " + data.rated;
+        modal_window.appendChild(rate_span);
+
+        // add the imdb score
+        var imdb_score = document.createElement("p");
+        imdb_score.innerHTML = "Score imdb : " + data.imdb_score;
+        modal_window.appendChild(imdb_score);
+
+        // add the directors
+        var directors = document.createElement("p");
+        directors.innerHTML = "Réalisateurs : " + data.directors;
+        modal_window.appendChild(directors);
+
+        // add the actors
+        var actors = document.createElement("p");
+        actors.innerHTML = "Acteurs : " + data.actors;
+        modal_window.appendChild(actors);
+
+        // add the duration
+        var duration = document.createElement("p");
+        var duration_value = data.duration;
+        var hours = Math.floor(duration_value / 60);
+        var minutes = duration_value % 60;
+        duration.innerHTML = "Durée : " + hours + "h" + (minutes > 0 ? minutes.toString().padStart(2, 0) : "");
+        modal_window.appendChild(duration);
+
+        // add the countries
+        var countries = document.createElement("p");
+        countries.innerHTML = "Countries : " + data.countries;
+        modal_window.appendChild(countries);
+
+        // add the synopsis
+        var synopsis = document.createElement("p");
+        synopsis.innerHTML = "Résumé : " + data.long_description;
+        modal_window.appendChild(synopsis);
+        
+    })
+}
+
 function display_categorie(results, class_id){
 
     results.then((top_rate_movies) => {
 
-        const top_rate_div = document.getElementById(class_id);
+        const parent_div = document.getElementById(class_id);
 
-        for(let i = 0; i < Math.min(top_rate_movies.length, MAX_MOVIES_BY_CATEGORIES); i++){
+        for(let i = 0; i < Math.min(top_rate_movies.length, MAX_MOVIES_BY_CATEGORIES); i++){       
 
-            var current_movie = top_rate_movies[i];
+            let current_movie = top_rate_movies[i];
+            var movie_id = class_id + "_" + i;
+
+            // create the movie container
+            var movie_div = document.createElement("div");
+            movie_div.classList.add("movie");
             
-            top_rate_div.innerHTML += 
-            "<div class= 'movie'>" + 
-                "<img src=" + current_movie.image_url + ">" +
-            "</div>";
+            // create the img element, containing the image of the current movie
+            var movie_img = document.createElement("img");
+            movie_img.src = current_movie.image_url;
+            movie_img.id = movie_id;
+
+            // append the div element to the parent div
+            parent_div.appendChild(movie_div);             
+            
+            // append the img element to the div element
+            movie_div.appendChild(movie_img);
+
+            // attach the click event to the img element
+            movie_img.addEventListener('click', (e) => {
+                display_movie_details(current_movie.id);
+            });
         }
 
-        top_rate_div.getElementsByClassName("slide_left")[0].addEventListener('click', (e) => {
-            top_rate_div.scrollLeft += top_rate_div.clientWidth / MAX_MOVIES_BY_CATEGORIES
-        });
+        try {
+            // add the left scroll button event on the parent div 
+            parent_div.getElementsByClassName("slide_left")[0].addEventListener('click', (e) => {
+                parent_div.scrollLeft += parent_div.clientWidth / MAX_MOVIES_BY_CATEGORIES
+            });
 
-        top_rate_div.getElementsByClassName("slide_right")[0].addEventListener('click', (e) => {
-            top_rate_div.scrollLeft -= top_rate_div.clientWidth / MAX_MOVIES_BY_CATEGORIES
-        });        
+            // add the right scroll button event on the parent div
+            parent_div.getElementsByClassName("slide_right")[0].addEventListener('click', (e) => {
+                parent_div.scrollLeft -= parent_div.clientWidth / MAX_MOVIES_BY_CATEGORIES
+            });
+
+        }catch (error) {
+            
+        }
     });
 }
 
