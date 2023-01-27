@@ -6,8 +6,8 @@ const modal_window = document.getElementById("modal_window");
 const modal_content = document.getElementById("modal_content");
 
 const CAT_1 = "Adventure"
-const CAT_2 = "Family"
-const CAT_3 = "Comedy"
+const CAT_2 = "Thriller"
+const CAT_3 = "Drama"
 
 async function getResults(url, allResults = [], currentPage = 0) {
 
@@ -173,14 +173,21 @@ function display_categorie(results, class_id){
     });
 }
 
-window.onclick = function(event) {
-    if (event.target == modal_window) {
-        modal_window.style.display = "none";
-    }
-}
+// update the 3 categories name
+document.getElementById('name_cat_1').innerHTML = CAT_1
+document.getElementById('name_cat_2').innerHTML = CAT_2
+document.getElementById('name_cat_3').innerHTML = CAT_3
 
+// launch all requests and display movies in the web page
 display_categorie(get_best_movie(), "best_movie")
 display_categorie(get_top_rate_movies(), "top_rate")
 display_categorie(get_category_1_movies(), "cat_1")
 display_categorie(get_category_2_movies(), "cat_2")
 display_categorie(get_category_3_movies(), "cat_3")
+
+// attach the event of modal window closing
+window.onclick = function(event) {
+    if (event.target == modal_window) {
+        modal_window.style.display = "none";
+    }
+}
