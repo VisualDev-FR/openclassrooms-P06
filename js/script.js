@@ -3,7 +3,7 @@ const MAX_MOVIE_BY_PAGE = 5;
 const MAX_PAGE = Math.ceil(MAX_MOVIES_BY_CATEGORIES / MAX_MOVIE_BY_PAGE);
 
 const CAT_1 = "Adventure"
-const CAT_2 = "Horror"
+const CAT_2 = "Family"
 const CAT_3 = "Comedy"
 
 async function getResults(url, allResults = [], currentPage = 0) {
@@ -51,26 +51,22 @@ function get_category_3_movies(){
 
 function display_categorie(results, class_id){
 
-    results
-    .then((top_rate_movies) => {
+    results.then((top_rate_movies) => {
 
         const top_rate_div = document.getElementById(class_id);
 
-        for(let i = 0; i < MAX_MOVIES_BY_CATEGORIES; i++){
+        for(let i = 0; i < Math.min(top_rate_movies.length, MAX_MOVIES_BY_CATEGORIES); i++){
 
             var current_movie = top_rate_movies[i];
-
-            console.log(current_movie)
-
+            
             top_rate_div.innerHTML += 
-                "<div class= 'movie'>" + 
-                    //current_movie.title + 
-                    "<img src=" + current_movie.image_url + ">" +
-                "</div>";
-
+            "<div class= 'movie'>" + 
+                "<img src=" + current_movie.image_url + ">" +
+            "</div>";
         }
     });
 }
+
 display_categorie(get_best_movie(), "best_movie")
 display_categorie(get_top_rate_movies(), "top_rate")
 display_categorie(get_category_1_movies(), "cat_1")
