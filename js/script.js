@@ -2,6 +2,9 @@ const MAX_MOVIES_BY_CATEGORIES = 7;
 const MAX_MOVIE_BY_PAGE = 5;
 const MAX_PAGE = Math.ceil(MAX_MOVIES_BY_CATEGORIES / MAX_MOVIE_BY_PAGE);
 
+const modal_window = document.getElementById("modal_window");
+const modal_content = document.getElementById("modal_content");
+
 const CAT_1 = "Adventure"
 const CAT_2 = "Family"
 const CAT_3 = "Comedy"
@@ -54,56 +57,52 @@ function display_movie_details(movie_id){
     fetch("http://localhost:8000/api/v1/titles/" + movie_id)
     .then((response) => response.json())
     .then((data) => {
-        
-        //TODO: remove this line
-        console.log(data);
 
         // display the modal window
-        const modal_window = document.getElementById("modal_window");
-        modal_window.style.display = "block";
+        modal_window.style.display = "flex";
 
         // clear all the content of the modal window
-        modal_window.innerHTML = "";
+        modal_content.innerHTML = "";
 
         // add the img of the movie
         var movie_img = document.createElement("img");
         movie_img.src = data.image_url;        
-        modal_window.appendChild(movie_img);
+        modal_content.appendChild(movie_img);
 
         // add the title of the movie
         var title_span = document.createElement("p");
         title_span.innerHTML = "Titre : " + data.original_title;
-        modal_window.appendChild(title_span);
+        modal_content.appendChild(title_span);
 
         // add the genres of the movie
         var genres_span = document.createElement("p");
         genres_span.innerHTML = "Genres : " + data.genres;
-        modal_window.appendChild(genres_span);
+        modal_content.appendChild(genres_span);
 
         // add the release date
         var release_date = document.createElement("p");
         release_date.innerHTML = "Date de sortie : " + data.date_published;
-        modal_window.appendChild(release_date);
+        modal_content.appendChild(release_date);
 
         // add the rate
         var rate_span = document.createElement("p");
         rate_span.innerHTML = "Rated : " + data.rated;
-        modal_window.appendChild(rate_span);
+        modal_content.appendChild(rate_span);
 
         // add the imdb score
         var imdb_score = document.createElement("p");
         imdb_score.innerHTML = "Score imdb : " + data.imdb_score;
-        modal_window.appendChild(imdb_score);
+        modal_content.appendChild(imdb_score);
 
         // add the directors
         var directors = document.createElement("p");
         directors.innerHTML = "Réalisateurs : " + data.directors;
-        modal_window.appendChild(directors);
+        modal_content.appendChild(directors);
 
         // add the actors
         var actors = document.createElement("p");
         actors.innerHTML = "Acteurs : " + data.actors;
-        modal_window.appendChild(actors);
+        modal_content.appendChild(actors);
 
         // add the duration
         var duration = document.createElement("p");
@@ -111,19 +110,18 @@ function display_movie_details(movie_id){
         var hours = Math.floor(duration_value / 60);
         var minutes = duration_value % 60;
         duration.innerHTML = "Durée : " + hours + "h" + (minutes > 0 ? minutes.toString().padStart(2, 0) : "");
-        modal_window.appendChild(duration);
+        modal_content.appendChild(duration);
 
         // add the countries
         var countries = document.createElement("p");
         countries.innerHTML = "Countries : " + data.countries;
-        modal_window.appendChild(countries);
+        modal_content.appendChild(countries);
 
         // add the synopsis
         var synopsis = document.createElement("p");
         synopsis.innerHTML = "Résumé : " + data.long_description;
-        modal_window.appendChild(synopsis);
-        
-    })
+        modal_content.appendChild(synopsis);        
+    });
 }
 
 function display_categorie(results, class_id){
@@ -173,6 +171,12 @@ function display_categorie(results, class_id){
             
         }
     });
+}
+
+window.onclick = function(event) {
+    if (event.target == modal_window) {
+        modal_window.style.display = "none";
+    }
 }
 
 display_categorie(get_best_movie(), "best_movie")
