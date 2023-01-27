@@ -5,8 +5,10 @@ html{
 body{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 50px;
     justify-content: space-around;
+    margin-bottom: 100px;
+    margin-top: 100px;
 }
 
 nav
@@ -20,7 +22,7 @@ nav
     text-align: center;
 }
 
-.movie:hover{
+.movie, img:hover{
     scale: 1.1;
     cursor: pointer;
 }
@@ -32,16 +34,46 @@ nav
 
 .movie_container{
     display: flex;
-    gap: 20px;
-    height: 200px;
-    justify-content: space-around;
-    margin-left: 50px;
-    margin-right: 50px;
+    height: 400px;
+    justify-content: space-between;
+    gap: 5%;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-#best_film{
-    height: 500px;
-    margin-left: 50px;
-    margin-right: 50px;    
+#best_movie{
+    height: 500px;   
+    text-align: center;
+}
+
+h2
+{
+    color: aliceblue;
+}
+
+.slide_left,
+.slide_right
+{
+    background-color: aliceblue;
+    position: absolute;
+    z-index: 1;
+    height: inherit;
+    opacity: 50%;
+}
+
+.slide_right
+{
+    opacity: 50%;
+}
+
+.slide_left
+{
+    left: 97%;
+}
+
+.slide_left:hover,
+.slide_right:hover
+{
+    cursor: pointer;
 }
 

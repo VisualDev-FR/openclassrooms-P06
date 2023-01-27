@@ -64,6 +64,14 @@ function display_categorie(results, class_id){
                 "<img src=" + current_movie.image_url + ">" +
             "</div>";
         }
+
+        top_rate_div.getElementsByClassName("slide_left")[0].addEventListener('click', (e) => {
+            top_rate_div.scrollLeft += top_rate_div.clientWidth / MAX_MOVIES_BY_CATEGORIES
+        });
+
+        top_rate_div.getElementsByClassName("slide_right")[0].addEventListener('click', (e) => {
+            top_rate_div.scrollLeft -= top_rate_div.clientWidth / MAX_MOVIES_BY_CATEGORIES
+        });        
     });
 }
 
