@@ -1,6 +1,0 @@
-mettre en forme les catégories
-mettre en place un modèle de fenetre modale
-mettre en place un scroll horizontal au niveau des catégories
-
-identifier des methodes de vérification pour la compatibilité sur plusieurs navigateurs
-
