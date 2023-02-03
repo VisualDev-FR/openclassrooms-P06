@@ -4,6 +4,8 @@ const MAX_PAGE = Math.ceil(MAX_MOVIES_BY_CATEGORIES / MAX_MOVIE_BY_PAGE);
 
 const modal_window = document.getElementById("modal_window");
 const modal_content = document.getElementById("modal_content");
+const modal_img = document.getElementById("modal_img");
+const modal_details = document.getElementById("modal_details");
 
 const CAT_1 = "Adventure"
 const CAT_2 = "Thriller"
@@ -59,50 +61,51 @@ function display_movie_details(movie_id){
     .then((data) => {
 
         // display the modal window
-        modal_window.style.display = "flex";
+        modal_content.parentElement.style.display = "flex";
 
         // clear all the content of the modal window
-        modal_content.innerHTML = "";
+        modal_details.innerHTML = "";
+        modal_img.innerHTML = "";
 
         // add the img of the movie
         var movie_img = document.createElement("img");
         movie_img.src = data.image_url;        
-        modal_content.appendChild(movie_img);
+        modal_img.appendChild(movie_img);
 
         // add the title of the movie
         var title_span = document.createElement("p");
         title_span.innerHTML = "Titre : " + data.original_title;
-        modal_content.appendChild(title_span);
+        modal_details.appendChild(title_span);
 
         // add the genres of the movie
         var genres_span = document.createElement("p");
         genres_span.innerHTML = "Genres : " + data.genres;
-        modal_content.appendChild(genres_span);
+        modal_details.appendChild(genres_span);
 
         // add the release date
         var release_date = document.createElement("p");
         release_date.innerHTML = "Date de sortie : " + data.date_published;
-        modal_content.appendChild(release_date);
+        modal_details.appendChild(release_date);
 
         // add the rate
         var rate_span = document.createElement("p");
         rate_span.innerHTML = "Rated : " + data.rated;
-        modal_content.appendChild(rate_span);
+        modal_details.appendChild(rate_span);
 
         // add the imdb score
         var imdb_score = document.createElement("p");
         imdb_score.innerHTML = "Score imdb : " + data.imdb_score;
-        modal_content.appendChild(imdb_score);
+        modal_details.appendChild(imdb_score);
 
         // add the directors
         var directors = document.createElement("p");
         directors.innerHTML = "Réalisateurs : " + data.directors;
-        modal_content.appendChild(directors);
+        modal_details.appendChild(directors);
 
         // add the actors
         var actors = document.createElement("p");
         actors.innerHTML = "Acteurs : " + data.actors;
-        modal_content.appendChild(actors);
+        modal_details.appendChild(actors);
 
         // add the duration
         var duration = document.createElement("p");
@@ -110,17 +113,17 @@ function display_movie_details(movie_id){
         var hours = Math.floor(duration_value / 60);
         var minutes = duration_value % 60;
         duration.innerHTML = "Durée : " + hours + "h" + (minutes > 0 ? minutes.toString().padStart(2, 0) : "");
-        modal_content.appendChild(duration);
+        modal_details.appendChild(duration);
 
         // add the countries
         var countries = document.createElement("p");
         countries.innerHTML = "Countries : " + data.countries;
-        modal_content.appendChild(countries);
+        modal_details.appendChild(countries);
 
         // add the synopsis
         var synopsis = document.createElement("p");
         synopsis.innerHTML = "Résumé : " + data.long_description;
-        modal_content.appendChild(synopsis);        
+        modal_details.appendChild(synopsis);        
     });
 }
 
