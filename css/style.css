@@ -24,7 +24,7 @@ nav
     text-align: center;
 }
 
-.movie>img:hover{
+img:hover{
     scale: 1.05;
     cursor: pointer;
 }
@@ -44,9 +44,27 @@ nav
     overflow-y: hidden;
 }
 
-#best_movie{
-    height: 500px;   
-    text-align: center;
+#best_movie
+{
+    bottom: 0;
+    height: 500px;
+    display: flex;
+    gap: 20px;
+}
+
+.content
+{
+    color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    font-size: 25px;
+    width: 50%;
+}
+
+#best_movie>img
+{
+    height: 100%;
+    width: auto;
 }
 
 h2

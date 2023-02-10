@@ -40,7 +40,7 @@ async function get_best_movie(){
     return await best_movie;
 }
 
-async function get_top_rate_movies(){    
+function get_top_rate_movies(){    
     return getResults("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,votes")
 }
 
@@ -129,6 +129,53 @@ function display_movie_details(movie_id){
     });
 }
 
+function display_best_movie(){
+
+    get_top_rate_movies().then((top_rate_movies) => {
+
+        const movie_div = document.getElementById("best_movie");
+
+        //parent_div.innerHTML = ""
+
+        let current_movie = top_rate_movies[0];
+        var movie_id = "best_movie_0";
+        
+        // create the img element, containing the image of the current movie
+        var movie_img = document.createElement("img");
+        movie_img.src = current_movie.image_url;
+        movie_img.id = movie_id;
+
+        // append the img element to the div element
+        movie_div.appendChild(movie_img);
+
+        fetch("http://localhost:8000/api/v1/titles/" + current_movie.id)
+        .then((response) => response.json())
+        .then((data) => {
+
+            var content_div = document.createElement("div");
+            content_div.classList.add("content");
+
+            var title = document.createElement("p");
+            title.innerHTML = data.original_title;
+    
+            var synopsis = document.createElement("p");
+            synopsis.innerHTML = data.long_description;
+
+            content_div.appendChild(title);
+            content_div.appendChild(synopsis);
+            
+            movie_div.appendChild(content_div);
+
+        });
+
+        // attach the click event to the img element
+        movie_img.addEventListener('click', (e) => {
+            display_movie_details(current_movie.id);
+        });
+    });
+}
+
+
 function display_categorie(results, class_id){
 
     results.then((top_rate_movies) => {
@@ -184,7 +231,7 @@ document.getElementById('name_cat_2').innerHTML = CAT_2
 document.getElementById('name_cat_3').innerHTML = CAT_3
 
 // launch all requests and display movies in the web page
-display_categorie(get_best_movie(), "best_movie")
+display_best_movie()
 display_categorie(get_top_rate_movies(), "top_rate")
 display_categorie(get_category_1_movies(), "cat_1")
 display_categorie(get_category_2_movies(), "cat_2")
@@ -199,4 +246,4 @@ window.onclick = function(event) {
 
 close_button.onclick = function() {
     modal_window.style.display = "none";
-  }
+}
