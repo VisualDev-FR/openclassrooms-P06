@@ -7,6 +7,8 @@ const modal_content = document.getElementById("modal_content");
 const modal_img = document.getElementById("modal_img");
 const modal_details = document.getElementById("modal_details");
 
+const close_button = document.getElementById("close")
+
 const CAT_1 = "Adventure"
 const CAT_2 = "Thriller"
 const CAT_3 = "Drama"
@@ -194,3 +196,7 @@ window.onclick = function(event) {
         modal_window.style.display = "none";
     }
 }
+
+close_button.onclick = function() {
+    modal_window.style.display = "none";
+  }
