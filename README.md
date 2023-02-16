@@ -35,7 +35,7 @@ env/script/activate
 4. Installer les packages python spécifiés dans le fichier ```requirement.txt``` :
 
 ```bash
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 5. Lancer le serveur de l'API:
