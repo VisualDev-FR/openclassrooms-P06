@@ -1,6 +1,7 @@
 const MAX_MOVIES_BY_CATEGORIES = 7;
 const MAX_MOVIE_BY_PAGE = 5;
 const MAX_PAGE = Math.ceil(MAX_MOVIES_BY_CATEGORIES / MAX_MOVIE_BY_PAGE);
+const BASE_URL = "http://localhost:8000/api/v1/titles/";
 
 const modal_window = document.getElementById("modal_window");
 const modal_content = document.getElementById("modal_content");
@@ -41,24 +42,24 @@ async function get_best_movie(){
 }
 
 function get_top_rate_movies(){    
-    return getResults("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,votes")
+    return getResults(BASE_URL + "?sort_by=-imdb_score,votes")
 }
 
 function get_category_1_movies(){
-    return getResults("http://localhost:8000/api/v1/titles/?genre=" + CAT_1 + "&sort_by=-imdb_score");
+    return getResults(BASE_URL + "?genre=" + CAT_1 + "&sort_by=-imdb_score");
 }
 
 function get_category_2_movies(){
-    return getResults("http://localhost:8000/api/v1/titles/?genre=" + CAT_2 + "&sort_by=-imdb_score");
+    return getResults(BASE_URL + "?genre=" + CAT_2 + "&sort_by=-imdb_score");
 }
 
 function get_category_3_movies(){
-    return getResults("http://localhost:8000/api/v1/titles/?genre=" + CAT_3 + "&sort_by=-imdb_score");
+    return getResults(BASE_URL + "?genre=" + CAT_3 + "&sort_by=-imdb_score");
 }
 
 function display_movie_details(movie_id){
 
-    fetch("http://localhost:8000/api/v1/titles/" + movie_id)
+    fetch(BASE_URL + movie_id)
     .then((response) => response.json())
     .then((data) => {
 
@@ -148,7 +149,7 @@ function display_best_movie(){
         // append the img element to the div element
         movie_div.appendChild(movie_img);
 
-        fetch("http://localhost:8000/api/v1/titles/" + current_movie.id)
+        fetch(BASE_URL + current_movie.id)
         .then((response) => response.json())
         .then((data) => {
 
@@ -157,9 +158,11 @@ function display_best_movie(){
 
             var title = document.createElement("p");
             title.innerHTML = data.original_title;
-    
+            title.id = "best_title"
+
             var synopsis = document.createElement("p");
             synopsis.innerHTML = data.long_description;
+            synopsis.id = "synospis_title"
 
             content_div.appendChild(title);
             content_div.appendChild(synopsis);

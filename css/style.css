@@ -6,10 +6,9 @@ html{
 body{
     display: flex;
     flex-direction: column;
-    gap: 50px;
     justify-content: space-around;
+    margin: 0;
     margin-bottom: 100px;
-    margin-top: 100px;
     overflow-x: hidden;
 }
 
@@ -24,7 +23,7 @@ nav
     text-align: center;
 }
 
-img:hover{
+.movie_container img:hover{
     scale: 1.05;
     cursor: pointer;
 }
@@ -36,6 +35,8 @@ img:hover{
 }
 
 .movie_container{
+    margin-left: 10px;
+    margin-right: 10px;
     display: flex;
     height: 400px;
     justify-content: space-between;
@@ -46,25 +47,41 @@ img:hover{
 
 #best_movie
 {
-    bottom: 0;
     height: 500px;
-    display: flex;
-    gap: 20px;
+  
+}
+
+#best_movie img:hover
+{
+    cursor: pointer;
+    opacity: 100%;
+    border-bottom: solid 2px white;
 }
 
 .content
 {
+    position: absolute;
     color: aliceblue;
-    display: flex;
-    flex-direction: column;
-    font-size: 25px;
-    width: 50%;
+    top: 200px;
+    width: 40%;
+    margin-left: 10px;
+}
+
+#best_title
+{
+    font-size: 30px;
+}
+
+#best_synopsis
+{
+    font-size: 15px;
 }
 
 #best_movie>img
 {
     height: 100%;
-    width: auto;
+    width: 100%;
+    opacity: 60%;
 }
 
 h2
@@ -178,3 +195,38 @@ transform: rotate(135deg);
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
   }
+
+ul 
+{
+    position: fixed;
+    width: 100%;
+    list-style-type: none;
+    color: white;
+    text-align: center;    
+    list-style-type: none;
+    overflow: hidden;
+    background-color: #333;
+    top: 0;
+    margin: 0;
+    z-index: 2;
+}
+  
+li 
+{
+float: left;
+}
+  
+li p 
+{
+display: block;
+color: white;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+}
+
+li p:hover 
+{
+    background-color: #111;
+    cursor: pointer;
+}
